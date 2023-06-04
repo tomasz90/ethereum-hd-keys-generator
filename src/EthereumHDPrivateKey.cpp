@@ -53,17 +53,26 @@ String EthereumHDPrivateKey::pub() const {
     printBytes(arr, sizeof(arr));
 
 
-    uint8_t digest[64] = {0};
-
-    keccak_256(last32Bytes, sizeof(last32Bytes), digest);
-
-    printBytes(digest, sizeof(digest));
+//    uint8_t digest[64] = {0};
+//
+//    printBytes(digest, sizeof(digest));
 
     return "";
 }
 
 String EthereumHDPrivateKey::xpub() const {
-    return HDPrivateKey::xpub();
+
+    HDPublicKey pubKey = HDPrivateKey::xpub();
+
+    std::ostringstream oss;
+    oss << std::hex << std::setfill('0');
+
+    for (int i = 0; i < 64; ++i) {
+        oss << std::setw(2) << static_cast<unsigned>(pubKey.point[i]);
+    }
+    Serial.println(oss.str().c_str());
+
+    return ".point";
 }
 
 void EthereumHDPrivateKey::printBytes(uint8_t *arr, uint8_t arrSize) const {
