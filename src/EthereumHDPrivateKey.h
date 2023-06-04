@@ -18,6 +18,8 @@ public:
     String xprv() const;
     EthereumHDPrivateKey derive(const char * path) const;
     String pk() const;
+
+    void pkRaw(uint8_t *result) const;
 };
 
 
