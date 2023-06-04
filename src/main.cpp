@@ -1,29 +1,13 @@
-/*
- * This example shows how to derive master private key from the recovery seed
- * Generate a random recovery seed i.e. on https://iancoleman.io/bip39/
- * and check the master private key, account private key, account public key
- * and first address.
- */
-#include <cstring>
-#include <ios>
-#include <iomanip>
-#include <sstream>
 #include "Bitcoin.h"
+#include "EthereumHDPrivateKey.h"
 #include "utility/trezor/memzero.h"
 
 void printHD(String mnemonic) {
 
     HDPrivateKey hd(mnemonic, "");
 
-    if (!hd) {
-        Serial.println("Invalid xpub");
-        return;
-    }
-
     Serial.println("Mnemonic:");
     Serial.println(mnemonic);
-    Serial.println("Root private key:");
-    Serial.println(hd);
 
     HDPrivateKey account = hd.derive("m/44'/60'/0'/0/0");
 
