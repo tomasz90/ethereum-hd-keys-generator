@@ -17,6 +17,11 @@ void setup() {
 
     Serial.println("Ethereum pk");
     Serial.println(account.pk());
+
+    Serial.println("Ethereum xpub");
+    Serial.println(account.xpub());
+
+    account.pub();
 }
 
 void loop() {
