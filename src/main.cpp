@@ -5,44 +5,48 @@
  * and first address.
  */
 #include <cstring>
+#include <ios>
+#include <iomanip>
+#include <sstream>
 #include "Bitcoin.h"
+#include "utility/trezor/memzero.h"
 
-void printHD(String mnemonic){
+void printHD(String mnemonic) {
 
     HDPrivateKey hd(mnemonic, "");
 
-    if(!hd){ Serial.println("Invalid xpub"); return;}
+    if (!hd) {
+        Serial.println("Invalid xpub");
+        return;
+    }
 
     Serial.println("Mnemonic:");
     Serial.println(mnemonic);
     Serial.println("Root private key:");
     Serial.println(hd);
 
-    Serial.println("First account:");
     HDPrivateKey account = hd.derive("m/44'/60'/0'/0/0");
-    Serial.println(account.address());
 
-    Serial.println("First private key:");
-
+    Serial.println("xprv:");
     String xprv = account.xprv();
 
-    uint8_t arr[78] = { 0 };
+    uint8_t arr[78] = {0};
     size_t l = fromBase58Check(xprv, arr, sizeof(arr));
 
-    if(l != sizeof (arr)) {
-        throw std::runtime_error("Invalid conversion from xprv to bytes");
+    if (l != sizeof(arr)) {
+        Serial.println("Invalid xprv conversion");
+        return;
     }
 
     uint8_t last32Bytes[32];
 
-    std::memcpy(last32Bytes, arr + 78 - 32, sizeof(last32Bytes));
+    memcpy(last32Bytes, arr + sizeof(arr) - sizeof(last32Bytes), sizeof(last32Bytes));
+    memzero(&arr, sizeof(arr));
 
-    String ethereumPk = toHex(last32Bytes, sizeof last32Bytes);
+    String ethereumPk = toHex(last32Bytes, sizeof(last32Bytes));
 
     Serial.println("Ethereum pk");
     Serial.println(ethereumPk);
-
-    Serial.println("\n");
 }
 
 void setup() {
