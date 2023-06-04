@@ -35,12 +35,14 @@ String EthereumHDPrivateKey::pub() const {
     uint8_t pubRaw[33] = {0};
     size_t l = fromBase58Check(this->xprv(), pubRaw, sizeof(pubRaw));
 
-    if (l != sizeof(xpubRaw)) {
-        Serial.println("Invalid xprv conversion");
-        return "";
-    }
+//    if (l != sizeof(pubRaw)) {
+//        Serial.println("Invalid xprv conversion");
+//        return "";
+//    }
+    Serial.println(l);
+    Serial.println(sizeof(pubRaw));
 
-    memcpy(pubRaw, xpubRaw + sizeof(xpubRaw) - 33, 33);
+    memcpy(pubRaw, xpubRaw + sizeof(xpubRaw) - sizeof(pubRaw), sizeof(pubRaw));
     memzero(&xpubRaw, sizeof(xpubRaw));
 
     return toHex(pubRaw, sizeof(pubRaw));
@@ -55,7 +57,7 @@ String EthereumHDPrivateKey::address() const {
 
     uint8_t rawAddress[20] = {0};
 
-    memcpy(rawAddress, hash + sizeof(hash) - 20, 20);
+    memcpy(rawAddress, hash + sizeof(hash) - sizeof(rawAddress), sizeof(rawAddress));
     memzero(&hash, sizeof(hash));
 
     return toHex(rawAddress, sizeof(rawAddress));
