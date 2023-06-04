@@ -11,11 +11,12 @@
 class EthereumHDPrivateKey : HDPrivateKey {
 
 public:
-    EthereumHDPrivateKey(const String &mnemonic);
+    explicit EthereumHDPrivateKey(const HDPrivateKey& hd);
+    explicit EthereumHDPrivateKey(const String &mnemonic);
     EthereumHDPrivateKey(const String &mnemonic, const String &password);
 
-    String _xprv() const;
-    EthereumHDPrivateKey _derive(const char * path) const;
+    String xprv() const;
+    EthereumHDPrivateKey derive(const char * path) const;
     String pk() const;
 };
 

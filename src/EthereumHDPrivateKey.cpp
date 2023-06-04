@@ -1,27 +1,20 @@
-//
-// Created by Tomasz Kulig on 04/06/2023.
-//
-
 #include "EthereumHDPrivateKey.h"
 #include "utility/trezor/bip39.h"
 #include "utility/trezor/memzero.h"
 
 EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic) : EthereumHDPrivateKey(mnemonic, "") {}
 
-EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic, const String &password) : HDPrivateKey(mnemonic, password) {
-//    if(mnemonic_check(mnemonic.c_str())) {
-//        Serial.println("Invalid mnemonic");
-//        throw std::invalid_argument("");
-//    }
-}
+EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic, const String &password) : HDPrivateKey(mnemonic, password) {}
 
-String EthereumHDPrivateKey::_xprv() const {
+EthereumHDPrivateKey::EthereumHDPrivateKey(const HDPrivateKey &hd): HDPrivateKey(hd) {}
+
+String EthereumHDPrivateKey::xprv() const {
     return HDPrivateKey::xprv();
 }
 
-EthereumHDPrivateKey EthereumHDPrivateKey::_derive(const char *path) const {
+EthereumHDPrivateKey EthereumHDPrivateKey::derive(const char *path) const {
     HDPrivateKey hd = HDPrivateKey::derive(path);
-    return (EthereumHDPrivateKey)hd;
+    return EthereumHDPrivateKey(hd);
 }
 
 String EthereumHDPrivateKey::pk() const {
