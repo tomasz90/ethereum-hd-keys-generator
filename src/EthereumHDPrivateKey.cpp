@@ -19,11 +19,11 @@ EthereumHDPrivateKey EthereumHDPrivateKey::derive(const char *path) const {
 
 String EthereumHDPrivateKey::pk() const {
     uint8_t last32Bytes[32] = {0};
-    pkRaw(last32Bytes);
+    pkRaw(last32Bytes, sizeof(last32Bytes));
     return toHex(last32Bytes, sizeof(last32Bytes));
 }
 
-void EthereumHDPrivateKey::pkRaw(uint8_t last32Bytes[32]) const {
+void EthereumHDPrivateKey::pkRaw(uint8_t *result, uint8_t resultSize) const {
     uint8_t arr[78] = {0};
     size_t l = fromBase58Check(this->xprv(), arr, sizeof(arr));
 
@@ -31,7 +31,7 @@ void EthereumHDPrivateKey::pkRaw(uint8_t last32Bytes[32]) const {
         Serial.println("Invalid xprv conversion");
         return;
     }
-
-    memcpy(last32Bytes, arr + sizeof(arr) - 32, 32);
+    Serial.println(sizeof result);
+    memcpy(result, arr + sizeof(arr) - resultSize, resultSize);
     memzero(&arr, sizeof(arr));
 }
