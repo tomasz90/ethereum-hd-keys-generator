@@ -4,6 +4,7 @@
  * and check the master private key, account private key, account public key
  * and first address.
  */
+#include <cstring>
 #include "Bitcoin.h"
 
 void printHD(String mnemonic){
@@ -25,10 +26,18 @@ void printHD(String mnemonic){
 
     String xprv = account.xprv();
 
-    uint8_t arr[112] = { 0 };
+    uint8_t arr[78] = { 0 };
     size_t l = fromBase58Check(xprv, arr, sizeof(arr));
 
-    String ethereumPk = toHex(arr, 32);
+    if(l != sizeof (arr)) {
+        throw std::runtime_error("Invalid conversion from xprv to bytes");
+    }
+
+    uint8_t last32Bytes[32];
+
+    std::memcpy(last32Bytes, arr + 78 - 32, sizeof(last32Bytes));
+
+    String ethereumPk = toHex(last32Bytes, sizeof last32Bytes);
 
     Serial.println("Ethereum pk");
     Serial.println(ethereumPk);
