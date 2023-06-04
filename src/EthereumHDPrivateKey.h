@@ -1,10 +1,5 @@
-//
-// Created by Tomasz Kulig on 04/06/2023.
-//
-
 #ifndef UNTITLED_ETHEREUMHDPRIVATEKEY_H
 #define UNTITLED_ETHEREUMHDPRIVATEKEY_H
-
 
 #include "Bitcoin.h"
 
@@ -15,18 +10,15 @@ public:
     explicit EthereumHDPrivateKey(const String &mnemonic);
     EthereumHDPrivateKey(const String &mnemonic, const String &password);
 
+    EthereumHDPrivateKey derive(const char * path) const;
     String xprv() const;
     String xpub() const;
-
-    EthereumHDPrivateKey derive(const char * path) const;
-    String pk() const;
-    void pkRaw(uint8_t *result, uint8_t resultSize) const;
-
+    String prv() const;
     String pub() const;
+    String address() const;
 
-    void printBytes(uint8_t *arr, uint8_t arrSize);
-
-    void printBytes(uint8_t *arr, uint8_t arrSize) const;
+private:
+    void prvRaw(uint8_t *result, uint8_t resultSize) const;
 };
 
 

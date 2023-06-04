@@ -15,13 +15,17 @@ void setup() {
     Serial.println("xprv:");
     Serial.println(account.xprv());
 
-    Serial.println("Ethereum pk");
-    Serial.println(account.pk());
+    Serial.println("prv:");
+    Serial.println(account.prv());
 
-    Serial.println("Ethereum xpub");
+    Serial.println("xpub:");
     Serial.println(account.xpub());
 
-    account.pub();
+    Serial.println("pub:");
+    Serial.println(account.pub());
+
+    Serial.println("address:");
+    Serial.println(account.address());
 }
 
 void loop() {
