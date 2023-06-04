@@ -3,12 +3,14 @@
 #include "EthereumHDPrivateKey.h"
 #include "utility/trezor/bip39.h"
 #include "utility/trezor/memzero.h"
+#include "utility/trezor/sha3.h"
 
 EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic) : EthereumHDPrivateKey(mnemonic, "") {}
 
-EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic, const String &password) : HDPrivateKey(mnemonic, password) {}
+EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic, const String &password) : HDPrivateKey(mnemonic,
+                                                                                                          password) {}
 
-EthereumHDPrivateKey::EthereumHDPrivateKey(const HDPrivateKey &hd): HDPrivateKey(hd) {}
+EthereumHDPrivateKey::EthereumHDPrivateKey(const HDPrivateKey &hd) : HDPrivateKey(hd) {}
 
 String EthereumHDPrivateKey::xprv() const {
     return HDPrivateKey::xprv();
@@ -64,13 +66,17 @@ String EthereumHDPrivateKey::xpub() const {
 
     HDPublicKey pubKey = HDPrivateKey::xpub();
 
-    std::ostringstream oss;
-    oss << std::hex << std::setfill('0');
+    printBytes(pubKey.point, 64);
 
-    for (int i = 0; i < 64; ++i) {
-        oss << std::setw(2) << static_cast<unsigned>(pubKey.point[i]);
-    }
-    Serial.println(oss.str().c_str());
+
+    uint8_t digest[32] = {0};
+    keccak_256(pubKey.point, sizeof(pubKey.point), digest);
+
+    uint8_t arr[20] = {0};
+
+    memcpy(arr, digest + sizeof(digest) - 20, 20);
+
+    printBytes(arr, sizeof(arr));
 
     return ".point";
 }
