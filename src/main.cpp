@@ -1,4 +1,3 @@
-#include "Bitcoin.h"
 #include "EthereumHDPrivateKey.h"
 
 void setup() {

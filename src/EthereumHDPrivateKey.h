@@ -15,8 +15,8 @@ public:
     EthereumHDPrivateKey derive(const char *path) const;
     String xprv() const;
     String xpub() const;
-    String prv() const;
     String pub() const;
+    String prv() const;
     String address() const;
 
 private:

@@ -18,15 +18,6 @@ String EthereumHDPrivateKey::xprv() const {
     return HDPrivateKey::xprv();
 }
 
-String EthereumHDPrivateKey::prv() const {
-    uint8_t last32Bytes[32] = {0};
-    prvRaw(last32Bytes, sizeof(last32Bytes));
-
-    String prv = "0x" + toHex(last32Bytes, sizeof(last32Bytes));
-    memzero(&last32Bytes, sizeof(last32Bytes));
-    return prv;
-}
-
 String EthereumHDPrivateKey::xpub() const {
     return HDPrivateKey::xpub();
 }
@@ -43,6 +34,15 @@ String EthereumHDPrivateKey::pub() const {
     memzero(&xpubRaw, sizeof(xpubRaw));
 
     return "0x" + toHex(pubRaw, sizeof(pubRaw));
+}
+
+String EthereumHDPrivateKey::prv() const {
+    uint8_t last32Bytes[32] = {0};
+    prvRaw(last32Bytes, sizeof(last32Bytes));
+
+    String prv = "0x" + toHex(last32Bytes, sizeof(last32Bytes));
+    memzero(&last32Bytes, sizeof(last32Bytes));
+    return prv;
 }
 
 String EthereumHDPrivateKey::address() const {
