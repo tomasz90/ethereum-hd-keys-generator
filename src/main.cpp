@@ -21,6 +21,7 @@ void setup() {
     Serial.println("pub:");
     Serial.println(account.pub());
 
+    // probably these are functions that you are interested in
     Serial.println("prv:");
     Serial.println(account.prv());
 

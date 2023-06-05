@@ -1,10 +1,5 @@
-//
-// Created by Tomasz Kulig on 05/06/2023.
-//
-
 #include <cstring>
 #include "EthereumHDPublicKey.h"
-#include "EthereumHDPrivateKey.h"
 
 
 EthereumHDPublicKey::EthereumHDPublicKey(const HDPublicKey &hd) : HDPublicKey(hd) {}

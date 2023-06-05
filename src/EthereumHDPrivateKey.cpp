@@ -1,10 +1,11 @@
 #include "EthereumHDPrivateKey.h"
 #include "utility/trezor/memzero.h"
 #include "EthereumHDPublicKey.h"
+#include "utility/trezor/sha3.h"
 
 EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic) : EthereumHDPrivateKey(mnemonic, "") {}
 
-EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic, const String &password) : HDPrivateKey(mnemonic, password) {}
+EthereumHDPrivateKey::EthereumHDPrivateKey(const String &mnemonic, const String &password) : HDPrivateKey(mnemonic,password) {}
 
 EthereumHDPrivateKey::EthereumHDPrivateKey(const HDPrivateKey &hd) : HDPrivateKey(hd) {}
 
@@ -49,7 +50,9 @@ String EthereumHDPrivateKey::address() const {
     HDPublicKey pubKey = HDPrivateKey::xpub();
 
     uint8_t hash[32] = {0};
-    //keccak_256(pubKey.point, sizeof(pubKey.point), hash);
+#if USE_KECCAK
+    keccak_256(pubKey.point, sizeof(pubKey.point), hash);
+#endif
 
     uint8_t rawAddress[20] = {0};
 
