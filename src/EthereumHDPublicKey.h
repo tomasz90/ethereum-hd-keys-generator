@@ -1,14 +1,9 @@
-//
-// Created by Tomasz Kulig on 05/06/2023.
-//
-
-#ifndef UNTITLED_ETHEREUMHDPUBLICKEY_H
-#define UNTITLED_ETHEREUMHDPUBLICKEY_H
-
+#ifndef ETHEREUMHDPUBLICKEY_H
+#define ETHEREUMHDPUBLICKEY_H
 
 #include <cstdint>
 #include <cstddef>
-#include "../.pio/libdeps/esp32dev/uBitcoin/src/Bitcoin.h"
+#include "Bitcoin.h"
 
 class EthereumHDPublicKey : HDPublicKey {
 public:
@@ -18,4 +13,4 @@ public:
 };
 
 
-#endif //UNTITLED_ETHEREUMHDPUBLICKEY_H
+#endif //ETHEREUMHDPUBLICKEY_H

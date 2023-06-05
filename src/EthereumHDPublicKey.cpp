@@ -1,7 +1,6 @@
 #include <cstring>
 #include "EthereumHDPublicKey.h"
 
-
 EthereumHDPublicKey::EthereumHDPublicKey(const HDPublicKey &hd) : HDPublicKey(hd) {}
 
 size_t EthereumHDPublicKey::to_bytes(uint8_t *arr, size_t len) const {
