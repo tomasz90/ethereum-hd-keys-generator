@@ -30,7 +30,7 @@ void compare_keys(
     TEST_ASSERT_TRUE(toLowerCase(expectedChecksumedAddress) == address);
 }
 
-void should_return_right_keys() {
+void should_return_right_keys_for_changing_address_index() {
     String mnemonic = "puppy impulse govern shy salt despair deliver tuition cradle lend mosquito sugar";
     String path0 = "m/44'/60'/0'/0/0";
     String path1 = "m/44'/60'/0'/0/1";
@@ -102,10 +102,84 @@ void should_return_right_keys() {
 
 }
 
+void should_return_right_keys_for_different_account_index() {
+    String mnemonic = "puppy impulse govern shy salt despair deliver tuition cradle lend mosquito sugar";
+    String path0 = "m/44'/60'/1'/0/0";
+    String path1 = "m/44'/60'/1'/0/1";
+    String path2 = "m/44'/60'/1'/0/2";
+    String path3 = "m/44'/60'/1'/0/3";
+    String path4 = "m/44'/60'/1'/0/4";
+    String path5 = "m/44'/60'/1'/0/5";
+    String path6 = "m/44'/60'/1'/0/6";
+    String path7 = "m/44'/60'/1'/0/7";
+    String path8 = "m/44'/60'/1'/0/8";
+    String path9 = "m/44'/60'/1'/0/9";
+    String path10 = "m/44'/60'/1'/0/10";
+
+
+    String pub0 = "0x03130cdf946c7c60c9fba80174aa637a37a85fb95dfed6d334530c9109a2870bcf";
+    String prv0 = "0x95fde86fa22cce540aeb8592bd0b7dc55233b996fccf6249d86dde24a0843148";
+    String address0 = "0x47b4D389b5b320a32fab9cBE704aABfBe076dDE5";
+
+    String pub1 = "0x0358afbe7fb2ca938e98243d980fd00dd6fbbe08b2f77c21048a434bbd3a49f2f8";
+    String prv1 = "0x01d619963e114cf896060683b56ede6854c84dcfd253feec16fecb5af65d8f00";
+    String address1 = "0x4F1D7677D029f600DF2bb2631e6C1C2Fc6e0d9E1";
+
+    String pub2 = "0x0248358577b2ace2d44ea08279c91434f40ca4e0c8843287b69a0861d48f0cc937";
+    String prv2 = "0x23ad436fb78c802090a2942d2a44e756881192f879ad68933755d147fce846f4";
+    String address2 = "0xd480d567Ff4b3b475241ebE27C159C61DFcCc1e7";
+
+    String pub3 = "0x02680224ac64da941a25a96d07188aedad134b257a284f364277a4e3e0cd3c2c4e";
+    String prv3 = "0xafee1e342c4746721b9f5b28f5ec550877456ba2638d842ae08773deff9e58d2";
+    String address3 = "0x939Aa9c08aedA53D4cd72C05D340712aFfA8b111";
+
+    String pub4 = "0x03b45456fb947a41a96679b143be3c265d8d66411f5ec0ce8e9b23d889c4d471be";
+    String prv4 = "0xdaaa0c341fd10633fb3a721e3405770412cc27c480ad7a29184835a96715d501";
+    String address4 = "0x5204727AE204Eb20b0b1fD8cf9cFbeEAf1740289";
+
+    String pub5 = "0x0381bd452e04082c746709175a2482034a0951ff4954e002d53010c135c4f4f12c";
+    String prv5 = "0x8a64d8a644a00b0b6a4c3935454bb30ca5bb1d156c13aba6d5703073c0ea2677";
+    String address5 = "0x5Af1c35DF86476d9Ba14a3d26965ceC9825A4C24";
+
+    String pub6 = "0x02c275b25d876fe63164039458d8cf553db139ad98efc3740c1dd898de2330a322";
+    String prv6 = "0xfc9397a83f3f01b2b1a44723e0c63a22e99385f66f02b339fdda5c527c521e1a";
+    String address6 = "0x15EcFB4bC97ee2EC1db7B57F54fC0aB8e720553D";
+
+    String pub7 = "0x020734bd291184db2cd39d5fa21eb07829cf8a8699f106bea6cc853aba8d9b017d";
+    String prv7 = "0x355b3a2e515735127d7f0b73879313bc4e410f49ec1dd6be3cb581fc661135d6";
+    String address7 = "0x21dB07b20030449F9798dF79a20DD870018b25De";
+
+    String pub8 = "0x03276ad350e0ba9ccd120b0f8e1f2bbaa6dab3051b332b9166bd4ee392a7bce51c";
+    String prv8 = "0xb32529971df48caeba3920b33b1f3b55115bd4e6682f2a4443dac8774f681820";
+    String address8 = "0xe58DCc17f90Ca6410592ABaB3138F0faDD9Baf95";
+
+    String pub9 = "0x032e6c06534c22c35f34405287c0f9bbf7d80e9eb2d0c65a321f0695316b653d90";
+    String prv9 = "0x6d12b08067f6fc034808b640334a43d2b1101c66fa7d3947b1ecf6cce7670a42";
+    String address9 = "0x405A90FD1497fc84cF255018df992DFe5c5D5e41";
+
+    String pub10 = "0x02b57a6d0e547c47f490eeb3c98d4700a5f7a18965618e7f5f7926be583a9fe048";
+    String prv10 = "0x6fe6ab924adb7b1f8cb33a1cf520d0964f7ae1022a5b06bcebb78db0f1acaeeb";
+    String address10 = "0x7b7A0c201BF3efBeE88ef5886B26805AAfF0B5A6";
+
+    compare_keys(mnemonic, path0, pub0, prv0, address0);
+    compare_keys(mnemonic, path1, pub1, prv1, address1);
+    compare_keys(mnemonic, path2, pub2, prv2, address2);
+    compare_keys(mnemonic, path3, pub3, prv3, address3);
+    compare_keys(mnemonic, path4, pub4, prv4, address4);
+    compare_keys(mnemonic, path5, pub5, prv5, address5);
+    compare_keys(mnemonic, path6, pub6, prv6, address6);
+    compare_keys(mnemonic, path7, pub7, prv7, address7);
+    compare_keys(mnemonic, path8, pub8, prv8, address8);
+    compare_keys(mnemonic, path9, pub9, prv9, address9);
+    compare_keys(mnemonic, path10, pub10, prv10, address10);
+
+}
+
 void setup() {
     Serial.begin(115200);
     UNITY_BEGIN();
-    RUN_TEST(should_return_right_keys);
+    RUN_TEST(should_return_right_keys_for_changing_address_index);
+    RUN_TEST(should_return_right_keys_for_different_account_index);
     UNITY_END();
 }
 

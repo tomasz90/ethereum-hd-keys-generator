@@ -7,7 +7,7 @@
 
 class EthereumHDPublicKey : HDPublicKey {
 public:
-    explicit EthereumHDPublicKey(const HDPublicKey& hd);
+    explicit EthereumHDPublicKey(const HDPublicKey &hd);
 
     size_t to_bytes(uint8_t *arr, size_t len) const;
 };
