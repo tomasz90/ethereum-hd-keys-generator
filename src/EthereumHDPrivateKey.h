@@ -18,9 +18,11 @@ public:
     String pub() const;
     String prv() const;
     String address() const;
+    String addressChecksumed() const;
 
 private:
     void prvRaw(uint8_t *result, uint8_t resultSize) const;
+    void rawAddress(uint8_t *rawAddress, uint8_t rawAddressLength) const;
 };
 
 

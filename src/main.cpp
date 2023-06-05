@@ -25,6 +25,9 @@ void setup() {
 
     Serial.println("address:");
     Serial.println(account.address());
+
+    Serial.println("checksumed address:");
+    Serial.println(account.addressChecksumed());
 }
 
 void loop() {

@@ -7,24 +7,18 @@ void compare_keys(
         const String &path,
         const String &expectedPub,
         const String &expectedPrv,
-        const String &expectedAddress
+        const String &expectedChecksumedAddress
 ) {
     EthereumHDPrivateKey hd(mnemonic);
     EthereumHDPrivateKey account = hd.derive(path);
 
     String pub = account.pub();
     String prv = account.prv();
-    String address = account.address();
+    String addressChecksumed = account.addressChecksumed();
 
-    Serial.println(expectedPub);
-    Serial.println(pub);
-    Serial.println(expectedPrv);
-    Serial.println(prv);
-    Serial.println(expectedAddress);
-    Serial.println(address);
     TEST_ASSERT_TRUE(expectedPub == pub);
     TEST_ASSERT_TRUE(expectedPrv == prv);
-    //TEST_ASSERT_TRUE(expectedAddress == address);
+    TEST_ASSERT_TRUE(expectedChecksumedAddress == addressChecksumed);
 }
 
 void should_return_right_keys() {
