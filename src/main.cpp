@@ -15,14 +15,14 @@ void setup() {
     Serial.println("xprv:");
     Serial.println(account.xprv());
 
-    Serial.println("prv:");
-    Serial.println(account.prv());
-
     Serial.println("xpub:");
     Serial.println(account.xpub());
 
     Serial.println("pub:");
     Serial.println(account.pub());
+
+    Serial.println("prv:");
+    Serial.println(account.prv());
 
     Serial.println("address:");
     Serial.println(account.address());

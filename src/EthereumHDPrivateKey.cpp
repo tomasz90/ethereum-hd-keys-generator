@@ -20,7 +20,10 @@ String EthereumHDPrivateKey::xprv() const {
 String EthereumHDPrivateKey::prv() const {
     uint8_t last32Bytes[32] = {0};
     prvRaw(last32Bytes, sizeof(last32Bytes));
-    return toHex(last32Bytes, sizeof(last32Bytes));
+
+    String prv = "0x" + toHex(last32Bytes, sizeof(last32Bytes));
+    memzero(&last32Bytes, sizeof(last32Bytes));
+    return prv;
 }
 
 String EthereumHDPrivateKey::xpub() const {
@@ -33,19 +36,12 @@ String EthereumHDPrivateKey::pub() const {
     pubKey.to_bytes(xpubRaw, sizeof(xpubRaw));
 
     uint8_t pubRaw[33] = {0};
-    size_t l = fromBase58Check(this->xprv(), pubRaw, sizeof(pubRaw));
-
-//    if (l != sizeof(pubRaw)) {
-//        Serial.println("Invalid xprv conversion");
-//        return "";
-//    }
-    Serial.println(l);
-    Serial.println(sizeof(pubRaw));
+    fromBase58(this->xprv(), pubRaw, sizeof(pubRaw));
 
     memcpy(pubRaw, xpubRaw + sizeof(xpubRaw) - sizeof(pubRaw), sizeof(pubRaw));
     memzero(&xpubRaw, sizeof(xpubRaw));
 
-    return toHex(pubRaw, sizeof(pubRaw));
+    return "0x" + toHex(pubRaw, sizeof(pubRaw));
 }
 
 String EthereumHDPrivateKey::address() const {
@@ -60,7 +56,7 @@ String EthereumHDPrivateKey::address() const {
     memcpy(rawAddress, hash + sizeof(hash) - sizeof(rawAddress), sizeof(rawAddress));
     memzero(&hash, sizeof(hash));
 
-    return toHex(rawAddress, sizeof(rawAddress));
+    return "0x" + toHex(rawAddress, sizeof(rawAddress));
 }
 
 void EthereumHDPrivateKey::prvRaw(uint8_t *result, uint8_t resultSize) const {
