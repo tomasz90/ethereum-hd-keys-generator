@@ -1,6 +1,8 @@
 #ifndef UNTITLED_ETHEREUMHDPRIVATEKEY_H
 #define UNTITLED_ETHEREUMHDPRIVATEKEY_H
 
+#include <cstdint>
+#include <cstddef>
 #include "Bitcoin.h"
 
 class EthereumHDPrivateKey : HDPrivateKey {
