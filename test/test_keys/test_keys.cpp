@@ -2,12 +2,19 @@
 #include <unity.h>
 #include "EthereumHDPrivateKey.h"
 
+String toLowerCase(String &str) {
+    for (char & i : str) {
+        i = tolower(i);
+    }
+    return str;
+}
+
 void compare_keys(
         const String &mnemonic,
         const String &path,
         const String &expectedPub,
         const String &expectedPrv,
-        const String &expectedChecksumedAddress
+        String &expectedChecksumedAddress
 ) {
     EthereumHDPrivateKey hd(mnemonic);
     EthereumHDPrivateKey account = hd.derive(path);
@@ -15,10 +22,12 @@ void compare_keys(
     String pub = account.pub();
     String prv = account.prv();
     String addressChecksumed = account.addressChecksumed();
+    String address = account.address();
 
     TEST_ASSERT_TRUE(expectedPub == pub);
     TEST_ASSERT_TRUE(expectedPrv == prv);
     TEST_ASSERT_TRUE(expectedChecksumedAddress == addressChecksumed);
+    TEST_ASSERT_TRUE(toLowerCase(expectedChecksumedAddress) == address);
 }
 
 void should_return_right_keys() {

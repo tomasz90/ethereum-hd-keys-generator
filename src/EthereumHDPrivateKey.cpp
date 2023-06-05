@@ -51,14 +51,15 @@ String EthereumHDPrivateKey::addressChecksumed() const {
     rawAddress(addr, sizeof(addr));
 
     String addrString = toHex(addr, sizeof(addr));
+    const auto *addrChar = reinterpret_cast<const unsigned char *>(addrString.c_str());
 
     uint8_t hash[32] = {0};
-    keccak_256(reinterpret_cast<const unsigned char *>(addrString.c_str()), 40, hash);
+    keccak_256(addrChar, 40, hash);
 
     String hashString = toHex(hash, sizeof(hash));
 
     for (int i = 0; i < addrString.length(); i++) {
-        if (addrString[i] >= 'a' && addrString[i] <= 'f') {
+        if (addrString[i] >= 'a') {
             if (hashString[i] >= '8') {
                 addrString[i] = toUpperCase(addrString[i]);
             }
